@@ -69,5 +69,5 @@ public class ReportController {
 
 	        reportService.exportPdf(request, response);
 	    }
-
+System.out.println("fetch command");
 }
