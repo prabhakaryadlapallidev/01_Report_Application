@@ -16,6 +16,8 @@ import com.ashokIt.dto.SearchResponseDTO;
 import com.ashokIt.service.ReportService;
 import com.ashokIt.service.SearchResponseService;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/reports")
@@ -39,4 +41,33 @@ public class ReportController {
 	    return searchResponseService.search(request);
 	}
 	
+	 @PostMapping("/excel")
+	    public void exportExcel(
+	            @RequestBody SearchRequestDto request,
+	            HttpServletResponse response) throws Exception {
+
+	        response.setContentType(
+	                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+
+	        response.setHeader(
+	                "Content-Disposition",
+	                "attachment; filename=Citizen_Report.xlsx");
+
+	        reportService.exportExcel(request, response);
+	    }
+	
+	 @PostMapping("/pdf")
+	    public void exportPdf(
+	            @RequestBody SearchRequestDto request,
+	            HttpServletResponse response) throws Exception {
+
+	        response.setContentType("application/pdf");
+
+	        response.setHeader(
+	                "Content-Disposition",
+	                "attachment; filename=Citizen_Report.pdf");
+
+	        reportService.exportPdf(request, response);
+	    }
+
 }

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { getDropdownData } from '../service/ReportService';
 import { searchRecords } from '../service/ReportService';
+import { exportExcel } from '../service/ReportService';
+import { exportPdf } from '../service/ReportService';
+import './ReportForm.css';
 function ReportForm() {
 
   const[plans,setPlans]=useState([]);
@@ -8,7 +11,9 @@ function ReportForm() {
   const[searchData, setSearchData]=useState({
     planId:"",
     statusId:"",
-    gender:""
+    gender:"",
+     startDate: "",
+    endDate: ""
   });
   const [records, setRecords] = useState([]);
 
@@ -40,12 +45,68 @@ const handleSearch=()=>{
     console.log(request)
 }
 
+// download excel
+
+const downloadExcel = () => {
+
+    exportExcel(searchData)
+        .then((response) => {
+
+            const url = window.URL.createObjectURL(
+                new Blob([response.data])
+            );
+
+            const link = document.createElement("a");
+
+            link.href = url;
+
+            link.download = "Citizen_Report.xlsx";
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            link.remove();
+
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+};
+
+
+//pdf download
+const downloadPdf = () => {
+
+    exportPdf(searchData)
+        .then((response) => {
+
+            const url = window.URL.createObjectURL(
+                new Blob([response.data])
+            );
+
+            const link = document.createElement("a");
+
+            link.href = url;
+
+            link.download = "Citizen_Report.pdf";
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            link.remove();
+
+        });
+
+};
 
   return (
-    <div style={{display:'flex',flexDirection:"column",justifyContent:'center',alignItems:'center',boxShadow:0}}>
+    <div className="report-container">
       <div>
         <h2>Citizen Reports</h2>
-      <label>Plane Name:</label>
+      <label>Plan Name:</label>
       <select value={searchData.planId} onChange={(e)=>setSearchData({
       ...searchData,
       planId: e.target.value
@@ -104,6 +165,40 @@ const handleSearch=()=>{
     <option value="Female">Female</option>
   </select>
 </div>
+<br />
+<div>
+  <label>Start Date:</label>
+
+  <input
+    type="date"
+    value={searchData.startDate}
+    onChange={(e) =>
+      setSearchData({
+        ...searchData,
+        startDate: e.target.value
+      })
+    }
+  />
+</div>
+
+<br />
+
+<div>
+  <label>End Date:</label>
+
+  <input
+    type="date"
+    value={searchData.endDate}
+    onChange={(e) =>
+      setSearchData({
+        ...searchData,
+        endDate: e.target.value
+      })
+    }
+  />
+</div>
+
+<br />
 
 <button onClick={handleSearch}>
     Search
@@ -111,7 +206,6 @@ const handleSearch=()=>{
 
 <hr />
 
-<h3>Search Results</h3>
 
 <table border="1">
 
@@ -154,6 +248,16 @@ const handleSearch=()=>{
 
 </table>
 
+<hr />
+<h3>Export Results</h3>
+
+<button onClick={downloadExcel} style={{margin:"10px"}}>
+    Export Excel
+</button>
+
+<button onClick={downloadPdf}>
+    Export PDF
+</button>
 
     </div>
   )

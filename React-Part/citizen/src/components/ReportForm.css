@@ -1,0 +1,102 @@
+/* Page background */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  background: #f4f6f9;
+}
+
+/* Main container card */
+.report-container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Title */
+.report-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #1f2937;
+}
+
+/* Form rows */
+.report-container div {
+  margin-bottom: 15px;
+}
+
+/* Labels */
+.report-container label {
+  display: inline-block;
+  width: 120px;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Inputs & selects */
+.report-container select {
+  width: 250px;
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.report-container select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+}
+
+/* Search button */
+.report-container button {
+  margin-top: 10px;
+  padding: 10px 18px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.report-container button:hover {
+  background: #2563eb;
+}
+
+/* Table styling */
+.report-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Table header */
+.report-container th {
+  background: #1f2937;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+/* Table cells */
+.report-container td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Zebra rows */
+.report-container tbody tr:nth-child(even) {
+  background: #f9fafb;
+}
+
+/* Hover effect */
+.report-container tbody tr:hover {
+  background: #eef2ff;
+}
